@@ -44,5 +44,6 @@ Blocks2{counti,countj} = i2(counti:counti+3,countj:countj+3);
     end
 end
 
+# This is not the end of the program. For simplicity I have divided the recognition part of the process in another file. Once this part of the program is executed, go to the next.
 
 
