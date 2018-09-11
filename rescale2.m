@@ -1,10 +1,13 @@
+% Extension of the program from the previous file.
+
+ 
 clc
-count5=0; match=zeros(1,7); sorted= zeros(1,7);
+count5=0; match=zeros(1,7); sorted= zeros(1,7); 
 i2=round(i2,15);
-for i=1:61                      %Finding matching corner points in the image
-    for j=1:61
+for i=1:61                      % Finding matching corner points in the image
+    for j=1:61                  % Just iterate over every block, and tru to find the corner pixels of the currently oversized block
         A2=resize_matrix{i,j};
-        [row1, col1]= size(A2);
+        [row1, col1]= size(A2); % If the corner pixels match exactly the same upto 15 decimal digits, then we can delacre that is one of the resize copy moved region.
         for k=1:row1
             for l=1:col1
                E= A2(k,l);
@@ -13,8 +16,7 @@ for i=1:61                      %Finding matching corner points in the image
                    for b=1:64
                 if(i2(a,b)==E)
                    D= [E k l a b i j];
-                 match=vertcat(match,D);
-                 
+                 match=vertcat(match,D);              
                 count5 = count5+1;
                 end
             end
@@ -23,6 +25,8 @@ for i=1:61                      %Finding matching corner points in the image
 end
 end
 end
+
+
 match(1,:)=[];
 B=unique(match, 'rows', 'stable');
 [row3, col3]= size(B); % row1=10,4; row3= 118,1
@@ -42,7 +46,7 @@ end
 
 corner=[ 1 2 3 4 ];
 count4=1;
-for i=1:row1                                        %eliminate the sizes not having all 4 corner pixels.
+for i=1:row1                                        % eliminate the sizes not having all 4 corner pixels.
     Z=match1{i};
     corner_values= Z(:,3);
     check =  all(ismember(corner, corner_values));
@@ -55,7 +59,7 @@ end
 count4=count4-1;
 
 c=0;c1=0;c2=0;
-for i=1:count4                       %count4   % eliminate all the rows in pixels with less that 2 repetitions to match rectangle
+for i=1:count4                       % count4   % eliminate all the rows in pixels with less that 2 repetitions to match rectangle
     A3= correct_matches{i};
     B3=A3;
     B1=A3(:,4); B2=A3(:,5);
@@ -80,7 +84,7 @@ for i=2:2
     for j=1:row6 
         B6(j)=round(B6(j));
             if (B6(j)==1)
-            co1= [B1(j) B2(j)];
+            co1= [B1(j) B2(j)];                   % Find each of the four corner pixels and then check which 4 among the matched pixels would create a rectangle.
             corner1=vertcat(corner1,co1);
         end
         if (B6(j)==2)
@@ -100,8 +104,12 @@ for i=2:2
     %[r1,c1]=size(corner1);[r2,c2]=size(corner2);[r3,c3]=size(corner3);[r4,c4]=size(corner4);
    % mini= min(row1,row2,row3,row4);
 end
-    output= zeros(row, col);
+    output= zeros(row, col);         % Once you find the matched rectangle, then you declare and indicate the copy rescaled regions in a new binary image.
     output(35:60,33:58)=1;
     figure,imshow(output);title('output');
-    
+
+
+% Go through the research work to understand the Logic involved. Yes, its an intricate logic, but not impossible to understand. 
+
+
 
