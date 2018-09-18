@@ -105,7 +105,7 @@ for i=2:2
    % mini= min(row1,row2,row3,row4);
 end
     output= zeros(row, col);         % Once you find the matched rectangle, then you declare and indicate the copy rescaled regions in a new binary image.
-    output(35:60,33:58)=1;
+    output(35:60,33:58)=1;           % The values here have to be changed basedon the values of corner1, corner2, corner3, corner4 values.
     figure,imshow(output);title('output');
 
 
